@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firman Aulia Wahid | Portofolio Web Developer</title>
+  <meta name="description" content="Portofolio Firman Aulia Wahid - Siswa X RPL SMK Ma'arif Batu, Web Developer.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: { ink: '#050b09', panel: '#0b1512' }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background: #050b09; color: #d1fae5; font-family: 'Inter', system-ui, sans-serif; }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -1;
+      background-image:
+        linear-gradient(rgba(16,185,129,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,185,129,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    }
+    .glow-text { text-shadow: 0 0 24px rgba(16,185,129,.55); }
+    .card {
+      background: linear-gradient(145deg, rgba(11,21,18,.95), rgba(8,16,13,.95));
+      border: 1px solid rgba(16,185,129,.18);
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(16,185,129,.7);
+      box-shadow: 0 18px 40px -12px rgba(16,185,129,.35), 0 0 0 1px rgba(16,185,129,.25);
+    }
+    .cursor::after { content: "|"; margin-left: 2px; color: #34d399; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .float { animation: float 5s ease-in-out infinite; }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    .ring { animation: spin-slow 14s linear infinite; }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+    .bar-fill { width: 0; transition: width 1.4s cubic-bezier(.22,1,.36,1); }
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
+      background: #10b981; transition: width .3s;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: #34d399; }
+    .btn-primary { background: linear-gradient(135deg, #10b981, #059669); transition: all .3s; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px -6px rgba(16,185,129,.7); }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #050b09; }
+    ::-webkit-scrollbar-thumb { background: #065f46; border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg,#10b981,#6ee7b7); z-index: 100; }
+  </style>
+</head>
+<body class="antialiased">
+  <div id="progress"></div>
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <nav class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+      <a href="#home" class="font-mono font-semibold text-lg text-emerald-400 glow-text">&lt;Firman<span class="text-white">/&gt;</span></a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="#home" class="nav-link text-emerald-100/80 hover:text-emerald-300">Home</a></li>
+        <li><a href="#about" class="nav-link text-emerald-100/80 hover:text-emerald-300">About</a></li>
+        <li><a href="#skills" class="nav-link text-emerald-100/80 hover:text-emerald-300">Skills</a></li>
+        <li><a href="#projects" class="nav-link text-emerald-100/80 hover:text-emerald-300">Projects</a></li>
+        <li><a href="#contact" class="nav-link text-emerald-100/80 hover:text-emerald-300">Contact</a></li>
+      </ul>
+      <button id="menuBtn" class="md:hidden text-emerald-300 text-2xl" aria-label="Buka menu"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+    <div id="mobileMenu" class="hidden md:hidden bg-ink/95 backdrop-blur border-t border-emerald-900/50">
+      <ul class="px-5 py-4 space-y-3 text-sm font-medium">
+        <li><a href="#home" class="block text-emerald-100/90">Home</a></li>
+        <li><a href="#about" class="block text-emerald-100/90">About</a></li>
+        <li><a href="#skills" class="block text-emerald-100/90">Skills</a></li>
+        <li><a href="#projects" class="block text-emerald-100/90">Projects</a></li>
+        <li><a href="#contact" class="block text-emerald-100/90">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="min-h-screen flex items-center pt-24 pb-16 px-5 relative overflow-hidden">
+      <div class="absolute -top-20 -left-20 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl"></div>
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative">
+        <div class="order-2 md:order-1 reveal">
+          <p class="font-mono text-emerald-400 mb-3 text-sm">&gt; Halo, saya</p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+            Firman <span class="text-emerald-400 glow-text">Aulia Wahid</span>
+          </h1>
+          <p class="mt-5 text-xl sm:text-2xl font-mono text-emerald-100">
+            Saya seorang <span id="typing" class="text-emerald-400 cursor"></span>
+          </p>
+          <p class="mt-5 text-emerald-100/70 max-w-lg leading-relaxed">
+            Siswa X RPL SMK Ma'arif Batu yang bersemangat membangun pengalaman web yang bersih, cepat, dan menarik.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#projects" class="btn-primary text-white font-semibold px-7 py-3 rounded-xl inline-flex items-center gap-2">
+              Lihat Project <i class="fa-solid fa-arrow-down"></i>
+            </a>
+            <a href="#contact" class="px-7 py-3 rounded-xl border border-emerald-500/50 text-emerald-300 font-semibold hover:bg-emerald-500/10 hover:-translate-y-1 transition inline-flex items-center gap-2">
+              Hubungi Saya <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+        <div class="order-1 md:order-2 flex justify-center reveal">
+          <div class="relative float">
+            <div class="absolute -inset-4 rounded-full border-2 border-dashed border-emerald-500/50 ring"></div>
+            <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-emerald-500 to-emerald-300 blur-md opacity-60"></div>
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=FirmanAuliaWahid&backgroundColor=10b981"
+                 alt="Avatar Firman Aulia Wahid"
+                 class="relative w-60 h-60 sm:w-72 sm:h-72 rounded-full object-cover border-4 border-emerald-400 bg-emerald-900">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-24 px-5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-14 reveal">
+          <p class="font-mono text-emerald-400 text-sm">01. Tentang</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2">Tentang <span class="text-emerald-400">Saya</span></h2>
+          <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div class="grid md:grid-cols-5 gap-8 items-stretch">
+          <div class="card rounded-2xl p-8 md:col-span-3 reveal">
+            <h3 class="text-xl font-semibold text-white mb-4"><i class="fa-solid fa-user-astronaut text-emerald-400 mr-2"></i>Siapa saya?</h3>
+            <p class="text-emerald-100/75 leading-relaxed">
+              Saya adalah siswa kelas X RPL yang sedang mempelajari dasar pemrograman web, logika algoritma,
+              dan pembuatan aplikasi digital. Saya senang bereksperimen dengan kode dan desain antarmuka
+              untuk mengubah ide menjadi produk yang nyata.
+            </p>
+            <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
+              <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                <p class="text-emerald-400 font-mono text-xs">NAMA</p>
+                <p class="text-white font-medium mt-1">Firman Aulia Wahid</p>
+              </div>
+              <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                <p class="text-emerald-400 font-mono text-xs">KELAS</p>
+                <p class="text-white font-medium mt-1">X RPL</p>
+              </div>
+              <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                <p class="text-emerald-400 font-mono text-xs">SEKOLAH</p>
+                <p class="text-white font-medium mt-1">SMK Ma'arif Batu</p>
+              </div>
+              <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                <p class="text-emerald-400 font-mono text-xs">MINAT</p>
+                <p class="text-white font-medium mt-1">Web Developer</p>
+              </div>
+            </div>
+          </div>
+          <div class="md:col-span-2 grid grid-cols-2 gap-4 reveal">
+            <div class="card rounded-2xl p-6 text-center flex flex-col justify-center">
+              <i class="fa-solid fa-code text-3xl text-emerald-400"></i>
+              <p class="mt-3 text-white font-semibold">Coding</p>
+              <p class="text-xs text-emerald-100/60 mt-1">Web &amp; logika</p>
+            </div>
+            <div class="card rounded-2xl p-6 text-center flex flex-col justify-center">
+              <i class="fa-solid fa-palette text-3xl text-emerald-400"></i>
+              <p class="mt-3 text-white font-semibold">UI Design</p>
+              <p class="text-xs text-emerald-100/60 mt-1">Antarmuka modern</p>
+            </div>
+            <div class="card rounded-2xl p-6 text-center flex flex-col justify-center">
+              <i class="fa-solid fa-lightbulb text-3xl text-emerald-400"></i>
+              <p class="mt-3 text-white font-semibold">Algoritma</p>
+              <p class="text-xs text-emerald-100/60 mt-1">Berpikir logis</p>
+            </div>
+            <div class="card rounded-2xl p-6 text-center flex flex-col justify-center">
+              <i class="fa-solid fa-robot text-3xl text-emerald-400"></i>
+              <p class="mt-3 text-white font-semibold">AI Prompt</p>
+              <p class="text-xs text-emerald-100/60 mt-1">Kolaborasi AI</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-24 px-5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-14 reveal">
+          <p class="font-mono text-emerald-400 text-sm">02. Keahlian</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2">Skill <span class="text-emerald-400">Saya</span></h2>
+          <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="card rounded-2xl p-6 reveal">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-semibold text-white"><i class="fa-brands fa-html5 text-emerald-400 mr-2"></i>HTML5</span>
+              <span class="font-mono text-emerald-400 text-sm">85%</span>
+            </div>
+            <div class="h-2.5 bg-emerald-950 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-300" data-w="85"></div></div>
+          </div>
+          <div class="card rounded-2xl p-6 reveal">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-semibold text-white"><i class="fa-brands fa-css3-alt text-emerald-400 mr-2"></i>CSS3</span>
+              <span class="font-mono text-emerald-400 text-sm">80%</span>
+            </div>
+            <div class="h-2.5 bg-emerald-950 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-300" data-w="80"></div></div>
+          </div>
+          <div class="card rounded-2xl p-6 reveal">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-semibold text-white"><i class="fa-brands fa-js text-emerald-400 mr-2"></i>Dasar JavaScript</span>
+              <span class="font-mono text-emerald-400 text-sm">60%</span>
+            </div>
+            <div class="h-2.5 bg-emerald-950 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-300" data-w="60"></div></div>
+          </div>
+          <div class="card rounded-2xl p-6 reveal">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-semibold text-white"><i class="fa-solid fa-pen-ruler text-emerald-400 mr-2"></i>UI Design</span>
+              <span class="font-mono text-emerald-400 text-sm">70%</span>
+            </div>
+            <div class="h-2.5 bg-emerald-950 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-300" data-w="70"></div></div>
+          </div>
+          <div class="card rounded-2xl p-6 reveal md:col-span-2">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-semibold text-white"><i class="fa-solid fa-wand-magic-sparkles text-emerald-400 mr-2"></i>Prompt Engineering</span>
+              <span class="font-mono text-emerald-400 text-sm">75%</span>
+            </div>
+            <div class="h-2.5 bg-emerald-950 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-300" data-w="75"></div></div>
+          </div>
+        </div>
+        <div class="mt-10 flex flex-wrap justify-center gap-3 reveal">
+          <span class="px-4 py-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-sm font-mono hover:bg-emerald-500 hover:text-ink transition cursor-default">HTML5</span>
+          <span class="px-4 py-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-sm font-mono hover:bg-emerald-500 hover:text-ink transition cursor-default">CSS3</span>
+          <span class="px-4 py-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-sm font-mono hover:bg-emerald-500 hover:text-ink transition cursor-default">JavaScript</span>
+          <span class="px-4 py-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-sm font-mono hover:bg-emerald-500 hover:text-ink transition cursor-default">Tailwind CSS</span>
+          <span class="px-4 py-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-sm font-mono hover:bg-emerald-500 hover:text-ink transition cursor-default">UI Design</span>
+          <span class="px-4 py-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-sm font-mono hover:bg-emerald-500 hover:text-ink transition cursor-default">Prompt Engineering</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-24 px-5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-14 reveal">
+          <p class="font-mono text-emerald-400 text-sm">03. Karya</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2">Project <span class="text-emerald-400">Latihan</span></h2>
+          <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <article class="card rounded-2xl overflow-hidden flex flex-col reveal group">
+            <div class="h-48 overflow-hidden bg-gradient-to-br from-emerald-800 to-emerald-950">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=70"
+                   alt="Ilustrasi website profil pribadi" loading="lazy"
+                   onerror="this.style.display='none'"
+                   class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-white">Website Profil Pribadi</h3>
+              <p class="text-sm text-emerald-100/70 mt-2 flex-1">Dibuat menggunakan HTML &amp; Tailwind CSS.</p>
+              <div class="flex gap-2 mt-4">
+                <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/10 text-emerald-300">HTML</span>
+                <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/10 text-emerald-300">Tailwind</span>
+              </div>
+              <button data-demo="Website Profil Pribadi" class="demo-btn mt-5 w-full btn-primary text-white font-semibold py-2.5 rounded-xl">
+                <i class="fa-solid fa-play mr-2"></i>Demo
+              </button>
+            </div>
+          </article>
+
+          <article class="card rounded-2xl overflow-hidden flex flex-col reveal group">
+            <div class="h-48 overflow-hidden bg-gradient-to-br from-emerald-800 to-emerald-950">
+              <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=800&q=70"
+                   alt="Ilustrasi kalkulator web" loading="lazy"
+                   onerror="this.style.display='none'"
+                   class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-white">Kalkulator Web Sederhana</h3>
+              <p class="text-sm text-emerald-100/70 mt-2 flex-1">Latihan logika aritmatika dasar.</p>
+              <div class="flex gap-2 mt-4">
+                <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/10 text-emerald-300">JavaScript</span>
+                <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/10 text-emerald-300">Logika</span>
+              </div>
+              <button data-demo="Kalkulator Web Sederhana" class="demo-btn mt-5 w-full btn-primary text-white font-semibold py-2.5 rounded-xl">
+                <i class="fa-solid fa-play mr-2"></i>Demo
+              </button>
+            </div>
+          </article>
+
+          <article class="card rounded-2xl overflow-hidden flex flex-col reveal group">
+            <div class="h-48 overflow-hidden bg-gradient-to-br from-emerald-800 to-emerald-950">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=70"
+                   alt="Ilustrasi desain UI aplikasi sekolah" loading="lazy"
+                   onerror="this.style.display='none'"
+                   class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="text-lg font-semibold text-white">Desain UI Aplikasi Sekolah</h3>
+              <p class="text-sm text-emerald-100/70 mt-2 flex-1">Rancangan antarmuka pengguna modern.</p>
+              <div class="flex gap-2 mt-4">
+                <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/10 text-emerald-300">UI Design</span>
+                <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/10 text-emerald-300">Mockup</span>
+              </div>
+              <button data-demo="Desain UI Aplikasi Sekolah" class="demo-btn mt-5 w-full btn-primary text-white font-semibold py-2.5 rounded-xl">
+                <i class="fa-solid fa-play mr-2"></i>Demo
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 px-5">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-14 reveal">
+          <p class="font-mono text-emerald-400 text-sm">04. Kontak</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-2">Hubungi <span class="text-emerald-400">Saya</span></h2>
+          <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+          <p class="text-emerald-100/70 mt-5 max-w-xl mx-auto">Tertarik berkolaborasi atau sekadar ingin berdiskusi tentang web? Silakan hubungi saya lewat kanal berikut.</p>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-6">
+          <a href="https://instagram.com/alfabes19" target="_blank" rel="noopener" class="card rounded-2xl p-7 text-center reveal block">
+            <i class="fa-brands fa-instagram text-4xl text-emerald-400"></i>
+            <p class="mt-4 font-semibold text-white">Instagram</p>
+            <p class="text-sm text-emerald-100/70 mt-1 font-mono">@alfabes19</p>
+          </a>
+          <a href="https://github.com/firmanwahid" target="_blank" rel="noopener" class="card rounded-2xl p-7 text-center reveal block">
+            <i class="fa-brands fa-github text-4xl text-emerald-400"></i>
+            <p class="mt-4 font-semibold text-white">GitHub</p>
+            <p class="text-sm text-emerald-100/70 mt-1 font-mono break-all">github.com/firmanwahid</p>
+          </a>
+          <a href="mailto:firmanwahid59@gmail.com" class="card rounded-2xl p-7 text-center reveal block">
+            <i class="fa-solid fa-envelope text-4xl text-emerald-400"></i>
+            <p class="mt-4 font-semibold text-white">Email</p>
+            <p class="text-sm text-emerald-100/70 mt-1 font-mono break-all">firmanwahid59@gmail.com</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-emerald-900/50 py-8 px-5 text-center">
+    <p class="text-sm text-emerald-100/60">
+      &copy; <span id="year"></span> <span class="text-emerald-400 font-semibold">Firman Aulia Wahid</span>. Hak cipta dilindungi.
+    </p>
+    <p class="text-xs text-emerald-100/40 mt-1 font-mono">X RPL &bull; SMK Ma'arif Batu</p>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-24 opacity-0 transition-all duration-300 bg-emerald-500 text-ink font-semibold px-5 py-3 rounded-xl shadow-lg z-50"></div>
+
+  <!-- Back to top -->
+  <button id="toTop" aria-label="Kembali ke atas" class="fixed bottom-6 right-6 w-11 h-11 rounded-full bg-emerald-500 text-ink shadow-lg opacity-0 pointer-events-none transition hover:-translate-y-1 z-40">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <script>
+    // Typing effect
+    (function () {
+      const roles = ["Web Developer", "UI Designer", "Siswa RPL", "Prompt Engineer"];
+      const el = document.getElementById("typing");
+      let r = 0, c = 0, deleting = false;
+      function tick() {
+        const word = roles[r];
+        el.textContent = word.substring(0, c);
+        let delay = deleting ? 50 : 110;
+        if (!deleting && c === word.length) { deleting = true; delay = 1600; }
+        else if (deleting && c === 0) { deleting = false; r = (r + 1) % roles.length; delay = 400; }
+        else { c += deleting ? -1 : 1; }
+        setTimeout(tick, delay);
+      }
+      tick();
+    })();
+
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+    mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => mobileMenu.classList.add("hidden")));
+
+    // Reveal on scroll + skill bars
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("show");
+          e.target.querySelectorAll(".bar-fill").forEach(b => b.style.width = b.dataset.w + "%");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    // Navbar, progress, active link, back-to-top
+    const navbar = document.getElementById("navbar");
+    const progress = document.getElementById("progress");
+    const toTop = document.getElementById("toTop");
+    const links = document.querySelectorAll(".nav-link");
+    const sections = ["home", "about", "skills", "projects", "contact"].map(id => document.getElementById(id));
+    function onScroll() {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (y / max * 100) + "%";
+      navbar.classList.toggle("bg-ink/80", y > 20);
+      navbar.classList.toggle("backdrop-blur-md", y > 20);
+      navbar.classList.toggle("shadow-lg", y > 20);
+      toTop.classList.toggle("opacity-0", y < 400);
+      toTop.classList.toggle("pointer-events-none", y < 400);
+      let current = "home";
+      sections.forEach(s => { if (y >= s.offsetTop - 160) current = s.id; });
+      links.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + current));
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    // Demo buttons toast
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    document.querySelectorAll(".demo-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        toast.textContent = 'Demo "' + btn.dataset.demo + '" akan segera tersedia!';
+        toast.classList.remove("translate-y-24", "opacity-0");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.add("translate-y-24", "opacity-0"), 2600);
+      });
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
